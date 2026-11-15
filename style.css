@@ -31,34 +31,43 @@
   --radius-sm: 8px;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* 가로 스크롤 및 우측 잘림 방지 */
+}
+
 body {
   font-family: var(--font-family);
   background: var(--bg-gradient);
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 16px;
+  padding: 24px 16px;
   line-height: 1.5;
+  box-sizing: border-box;
 }
 
 .container {
   width: 100%;
-  max-width: 680px;
+  max-width: 640px;
+  margin: 0 auto;
   background: var(--card-bg);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: 36px 32px;
+  padding: 32px 24px;
   position: relative;
-  overflow: hidden;
+  box-sizing: border-box;
   border: 1px solid rgba(229, 231, 235, 0.7);
 }
 
 /* === Header === */
 .header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .badge {
@@ -80,22 +89,23 @@ body {
 }
 
 .header h1 {
-  font-size: 1.85rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: #111827;
   letter-spacing: -0.5px;
   margin-bottom: 8px;
+  word-break: keep-all;
 }
 
 .subtitle {
   color: var(--text-sub);
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   word-break: keep-all;
 }
 
 /* === Main Sections === */
 .section-title {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 16px;
@@ -110,21 +120,21 @@ body {
 
 /* === Voting Section (Cards) === */
 .voting-section {
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 트랙 넘침 방지 */
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .menu-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px;
+  gap: 12px;
+  padding: 14px 12px;
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
   background: #ffffff;
@@ -132,6 +142,8 @@ body {
   position: relative;
   transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
+  min-width: 0; /* 내부 텍스트로 인한 확장 방지 */
+  box-sizing: border-box;
 }
 
 .menu-card:hover {
@@ -148,9 +160,11 @@ body {
 }
 
 .menu-emoji {
-  font-size: 2.2rem;
-  min-width: 48px;
-  height: 48px;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,29 +174,34 @@ body {
 }
 
 .menu-card:hover .menu-emoji {
-  transform: scale(1.1) rotate(4deg);
+  transform: scale(1.08) rotate(4deg);
 }
 
 .menu-info {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 0;
+  min-width: 0; /* 텍스트 넘침 방지 */
 }
 
 .menu-name {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #111827;
   margin-bottom: 2px;
-}
-
-.menu-desc {
-  font-size: 0.78rem;
-  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.menu-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .menu-card.selected .menu-name {
@@ -190,8 +209,8 @@ body {
 }
 
 .check-indicator {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #cbd5e1;
   border-radius: 50%;
   position: relative;
@@ -207,8 +226,8 @@ body {
 .menu-card.selected .check-indicator::after {
   content: '';
   position: absolute;
-  width: 5px;
-  height: 9px;
+  width: 4px;
+  height: 8px;
   border: solid white;
   border-width: 0 2px 2px 0;
   top: 45%;
@@ -219,12 +238,12 @@ body {
 /* === Vote Button === */
 .vote-button {
   width: 100%;
-  padding: 16px;
+  padding: 15px;
   border: none;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--primary) 0%, #ff784e 100%);
   color: #ffffff;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
@@ -234,6 +253,7 @@ body {
   gap: 10px;
   transition: all 0.25s ease;
   box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+  box-sizing: border-box;
 }
 
 .vote-button:hover:not(:disabled) {
@@ -256,14 +276,15 @@ body {
 /* === Results Section === */
 .result-section {
   border-top: 1px dashed var(--border-color);
-  padding-top: 28px;
+  padding-top: 26px;
 }
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  gap: 8px;
 }
 
 .result-header .section-title {
@@ -273,30 +294,32 @@ body {
 .total-count-box {
   background: #f1f5f9;
   color: var(--text-sub);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 9999px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .total-count-box strong {
   color: var(--primary);
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .results-container {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
 .result-item {
   background: #fbfcfe;
   border: 1px solid #f1f5f9;
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 13px 15px;
   transition: all 0.25s ease;
+  min-width: 0;
 }
 
 .result-item.highlight {
@@ -309,23 +332,28 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
+  gap: 8px;
 }
 
 .item-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
 }
 
 .item-title .emoji {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .item-title .name {
   font-weight: 700;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   color: #1f2937;
+  white-space: nowrap;
 }
 
 .leader-badge {
@@ -334,10 +362,12 @@ body {
   font-weight: 800;
   background: #fef3c7;
   color: #b45309;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 9999px;
   border: 1px solid #fde68a;
   animation: bounce 1.8s infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .leader-badge.hidden {
@@ -352,8 +382,9 @@ body {
 .item-stats {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 0.88rem;
+  flex-shrink: 0;
 }
 
 .item-stats .vote-count {
@@ -364,13 +395,13 @@ body {
 .item-stats .vote-percentage {
   font-weight: 800;
   color: #111827;
-  min-width: 44px;
+  min-width: 38px;
   text-align: right;
 }
 
 .progress-bar-bg {
   width: 100%;
-  height: 12px;
+  height: 10px;
   background: #e2e8f0;
   border-radius: 9999px;
   overflow: hidden;
@@ -400,7 +431,7 @@ body {
   color: var(--text-sub);
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -416,14 +447,14 @@ body {
 /* === Toast Notification === */
 .toast {
   position: fixed;
-  bottom: 30px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%) translateY(0);
   background: #111827;
   color: #ffffff;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 9999px;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 600;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -431,6 +462,10 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
+  max-width: 90vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .toast.hidden {
@@ -439,23 +474,27 @@ body {
   pointer-events: none;
 }
 
-/* === Responsive Breakpoint === */
-@media (max-width: 600px) {
+/* === Responsive Breakpoint (모바일 및 좁은 화면 최적화) === */
+@media (max-width: 640px) {
   body {
-    padding: 16px 10px;
+    padding: 16px 12px;
   }
 
   .container {
-    padding: 24px 18px;
+    padding: 22px 16px;
     border-radius: 16px;
   }
 
+  .header {
+    margin-bottom: 22px;
+  }
+
   .header h1 {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
   }
 
   .menu-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* 좁은 화면에서는 1열로 배치하여 텍스트 및 우측 잘림 원천 차단 */
     gap: 10px;
   }
 
@@ -465,7 +504,12 @@ body {
 
   .menu-emoji {
     font-size: 1.8rem;
-    min-width: 40px;
+    width: 40px;
     height: 40px;
+    min-width: 40px;
+  }
+
+  .menu-desc {
+    white-space: normal; /* 모바일에서는 줄바꿈 허용 */
   }
 }
