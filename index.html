@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍱 오늘 뭐 먹지? 실시간 점심 메뉴 투표</title>
+  <!-- Google Fonts & Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="badge">🔥 실시간 투표 진행 중</div>
+      <h1>점심 메뉴 투표하기</h1>
+      <p class="subtitle">오늘 점심은 무엇을 먹을까요? 마음에 드는 메뉴를 선택해 주세요!</p>
+    </header>
+
+    <main class="main-content">
+      <!-- 메뉴 선택 영역 -->
+      <section class="voting-section">
+        <h2 class="section-title">
+          <span class="icon">🍽️</span> 메뉴를 골라주세요
+        </h2>
+
+        <div class="menu-grid" id="menuGrid" role="radiogroup" aria-label="점심 메뉴 선택">
+          <!-- 비빔밥 -->
+          <div class="menu-card" data-id="bibimbap" role="radio" aria-checked="false" tabindex="0">
+            <div class="menu-emoji">🍚</div>
+            <div class="menu-info">
+              <span class="menu-name">비빔밥</span>
+              <span class="menu-desc">신선한 나물과 매콤달콤 고추장</span>
+            </div>
+            <div class="check-indicator"></div>
+          </div>
+
+          <!-- 돈까스 -->
+          <div class="menu-card" data-id="tonkatsu" role="radio" aria-checked="false" tabindex="0">
+            <div class="menu-emoji">🍱</div>
+            <div class="menu-info">
+              <span class="menu-name">돈까스</span>
+              <span class="menu-desc">바삭바삭 튀김옷과 두툼한 고기</span>
+            </div>
+            <div class="check-indicator"></div>
+          </div>
+
+          <!-- 국밥 -->
+          <div class="menu-card" data-id="gukbap" role="radio" aria-checked="false" tabindex="0">
+            <div class="menu-emoji">🍲</div>
+            <div class="menu-info">
+              <span class="menu-name">국밥</span>
+              <span class="menu-desc">속까지 든든하게 풀어주는 뜨끈한 국물</span>
+            </div>
+            <div class="check-indicator"></div>
+          </div>
+
+          <!-- 샐러드 -->
+          <div class="menu-card" data-id="salad" role="radio" aria-checked="false" tabindex="0">
+            <div class="menu-emoji">🥗</div>
+            <div class="menu-info">
+              <span class="menu-name">샐러드</span>
+              <span class="menu-desc">가볍고 건강하게 즐기는 신선한 한 끼</span>
+            </div>
+            <div class="check-indicator"></div>
+          </div>
+        </div>
+
+        <!-- 투표하기 버튼 -->
+        <button id="voteBtn" class="vote-button" disabled>
+          <span class="btn-text">메뉴를 선택해 주세요</span>
+          <span class="btn-icon">👉</span>
+        </button>
+      </section>
+
+      <!-- 실시간 결과 영역 -->
+      <section class="result-section">
+        <div class="result-header">
+          <h2 class="section-title">
+            <span class="icon">📊</span> 실시간 투표 결과
+          </h2>
+          <div class="total-count-box">
+            총 <strong id="totalVotes">0</strong>표
+          </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+          <!-- 비빔밥 결과 -->
+          <div class="result-item" id="result-bibimbap">
+            <div class="result-item-header">
+              <div class="item-title">
+                <span class="emoji">🍚</span>
+                <span class="name">비빔밥</span>
+                <span class="leader-badge hidden">👑 1위</span>
+              </div>
+              <div class="item-stats">
+                <span class="vote-count">0표</span>
+                <span class="vote-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-bibimbap" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- 돈까스 결과 -->
+          <div class="result-item" id="result-tonkatsu">
+            <div class="result-item-header">
+              <div class="item-title">
+                <span class="emoji">🍱</span>
+                <span class="name">돈까스</span>
+                <span class="leader-badge hidden">👑 1위</span>
+              </div>
+              <div class="item-stats">
+                <span class="vote-count">0표</span>
+                <span class="vote-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-tonkatsu" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- 국밥 결과 -->
+          <div class="result-item" id="result-gukbap">
+            <div class="result-item-header">
+              <div class="item-title">
+                <span class="emoji">🍲</span>
+                <span class="name">국밥</span>
+                <span class="leader-badge hidden">👑 1위</span>
+              </div>
+              <div class="item-stats">
+                <span class="vote-count">0표</span>
+                <span class="vote-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-gukbap" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- 샐러드 결과 -->
+          <div class="result-item" id="result-salad">
+            <div class="result-item-header">
+              <div class="item-title">
+                <span class="emoji">🥗</span>
+                <span class="name">샐러드</span>
+                <span class="leader-badge hidden">👑 1위</span>
+              </div>
+              <div class="item-stats">
+                <span class="vote-count">0표</span>
+                <span class="vote-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-salad" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 하단 액션 버튼 -->
+        <div class="result-actions">
+          <button id="resetBtn" class="reset-button" title="투표 데이터를 초기화합니다">
+            🔄 결과 초기화
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 토스트 알림 메시지 -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
