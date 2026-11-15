@@ -78,12 +78,29 @@
       <!-- 실시간 결과 영역 -->
       <section class="result-section">
         <div class="result-header">
-          <h2 class="section-title">
-            <span class="icon">📊</span> 실시간 투표 결과
-          </h2>
+          <div class="result-title-group">
+            <h2 class="section-title">
+              <span class="icon">📊</span> 실시간 투표 결과
+            </h2>
+            <div class="sync-status" id="syncStatus">
+              <span class="sync-dot"></span>
+              <span class="sync-text" id="syncText">구글 시트 연동 중...</span>
+            </div>
+          </div>
           <div class="total-count-box">
             총 <strong id="totalVotes">0</strong>표
           </div>
+        </div>
+
+        <!-- 시트 정보 툴바 -->
+        <div class="sheet-info-bar">
+          <div class="sheet-source-info">
+            <span class="sheet-icon">📄</span>
+            <span class="sheet-label">구글 시트 <strong>'점심 메뉴 투표'</strong> 집계</span>
+          </div>
+          <button id="refreshBtn" class="refresh-button" title="구글 시트 최신 데이터 가져오기">
+            <span class="refresh-icon">🔄</span> 최신화
+          </button>
         </div>
 
         <div class="results-container" id="resultsContainer">
@@ -160,10 +177,16 @@
           </div>
         </div>
 
-        <!-- 하단 액션 버튼 -->
+        <!-- 하단 정보 및 링크 -->
         <div class="result-actions">
-          <button id="resetBtn" class="reset-button" title="투표 데이터를 초기화합니다">
-            🔄 결과 초기화
+          <a href="https://docs.google.com/spreadsheets/d/1VnlP_HWFiANJWV4D17ecovgr2j9hzsdw50FtcCcA7E8/edit?usp=sharing" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="sheet-link-button">
+            🔗 구글 시트 원본 보기
+          </a>
+          <button id="resetBtn" class="reset-button" title="화면 결과를 기본 0표로 초기화합니다">
+            🔄 0표로 초기화
           </button>
         </div>
       </section>
